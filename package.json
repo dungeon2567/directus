@@ -20,6 +20,7 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
+    "@auth/d1-adapter": "^1.7.4",
     "@mantine/core": "7.15.3",
     "@mantine/hooks": "7.15.3",
     "@next/bundle-analyzer": "^14.2.4",

@@ -1,5 +1,7 @@
 import NextAuth from "next-auth"
+import { D1Adapter } from "@auth/d1-adapter"
  
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [],
+  adapter: D1Adapter(env.db),
 })
