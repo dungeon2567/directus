@@ -1,92 +1,132 @@
-'use client';
-
-import { useState } from 'react';
-import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+"use client";
 
 import {
-  TextInput,
-  PasswordInput,
   Button,
-  Container,
+  Checkbox,
   Paper,
-  Text,
-  Group,
-  Anchor,
+  PasswordInput,
+  TextInput,
+  Title,
+  Alert,
 } from '@mantine/core';
+import { useState } from 'react';
+import { IconAlertCircle } from '@tabler/icons-react';
+import classes from './Login.module.css';
+import RegisterButton from './RegisterButton';
+import { createClient } from '@/utils/supabase/client';
+import { useRouter } from 'next/navigation';
 
-export default function Login() {
-  const supabase = createClientComponentClient<any>();
-
-  // Type the state variables
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  // Type the event parameter
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const router = useRouter();
+
+  const supabase = createClient();
+
+  // Login handler
+  const handleLogin = async () => {
     setLoading(true);
     setError(null);
 
     try {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
+
       if (error) {
-        throw error;
+        setError(error.message);
+      } else {
+        // Redirect or handle successful login
+        console.log('Login successful');
+
+        debugger;
+
+        router?.push('/');  // Adjust this route as needed
       }
-      alert('Login successful!');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Register handler
+  const handleRegister = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const { error } = await supabase.auth.signUp({ email, password });
+
+      if (error) {
+        setError(error.message);
+      } else {
+        // Handle successful registration
+        console.log('Registration successful');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Container size={420} my={40}>
-      <Text size="lg">
-        Welcome back! Log in to your account
-      </Text>
+    <div className={classes.wrapper}>
+      <Paper className={classes.form} radius={0} p={30}>
+        <Title order={2} className={classes.title} ta="center" mt="md" mb={50}>
+          Welcome back to Supabase App!
+        </Title>
 
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={handleLogin}>
-          <TextInput
-            label="Email"
-            placeholder="you@example.com"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        {error && (
+          <Alert
+            icon={<IconAlertCircle size={16} />}
+            title="Error"
+            color="red"
+            mb="md"
+          >
+            {error}
+          </Alert>
+        )}
 
-          <PasswordInput
-            label="Password"
-            placeholder="Your password"
-            required
-            mt="md"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          {error && (
-            <Text color="red" size="sm" mt="sm">
-              {error}
-            </Text>
-          )}
-
-          <Button type="submit" fullWidth mt="xl" loading={loading}>
-            Log in
-          </Button>
-        </form>
-
-        <Group mt="md">
-          <Anchor href="/forgot-password" size="sm">
-            Forgot password?
-          </Anchor>
-          <Anchor href="/register" size="sm">
-            Don't have an account? Register
-          </Anchor>
-        </Group>
+        <TextInput
+          label="Email address"
+          placeholder="hello@gmail.com"
+          size="md"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <PasswordInput
+          label="Password"
+          placeholder="Your password"
+          mt="md"
+          size="md"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Checkbox label="Keep me logged in" mt="xl" size="md" />
+        <Button
+          fullWidth
+          mt="xl"
+          size="md"
+          onClick={handleLogin}
+          loading={loading}
+        >
+          Login
+        </Button>
+        <Button
+          fullWidth
+          mt="md"
+          size="md"
+          variant="outline"
+          onClick={handleRegister}
+          disabled={loading}
+        >
+          Register
+        </Button>
+        <RegisterButton />
       </Paper>
-    </Container>
+    </div>
   );
 }
