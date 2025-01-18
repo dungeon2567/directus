@@ -125,7 +125,6 @@ export default function LoginPage() {
         >
           Register
         </Button>
-        <RegisterButton />
       </Paper>
     </div>
   );
