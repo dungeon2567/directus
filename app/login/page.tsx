@@ -14,7 +14,7 @@ import {
   Anchor,
 } from '@mantine/core';
 
-export default function Login({ session }: { session: Session | null }) {
+export default function Login() {
   const supabase = createClientComponentClient<any>();
 
   // Type the state variables
