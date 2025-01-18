@@ -12,7 +12,6 @@ import {
 import { useState } from 'react';
 import { IconAlertCircle } from '@tabler/icons-react';
 import classes from './Login.module.css';
-import RegisterButton from './RegisterButton';
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 
