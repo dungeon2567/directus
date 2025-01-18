@@ -81,10 +81,12 @@ export default function LoginPage() {
 
         {error && (
           <Alert
+            variant="outline"
             icon={<IconAlertCircle size={16} />}
             title="Error"
             color="red"
             mb="md"
+            withCloseButton
           >
             {error}
           </Alert>
