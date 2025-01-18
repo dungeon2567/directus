@@ -44,7 +44,7 @@ export default function Login() {
 
   return (
     <Container size={420} my={40}>
-      <Text align="center" size="lg" weight={700}>
+      <Text size="lg">
         Welcome back! Log in to your account
       </Text>
 
@@ -78,7 +78,7 @@ export default function Login() {
           </Button>
         </form>
 
-        <Group position="apart" mt="md">
+        <Group mt="md">
           <Anchor href="/forgot-password" size="sm">
             Forgot password?
           </Anchor>

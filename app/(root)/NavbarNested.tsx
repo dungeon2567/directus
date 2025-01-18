@@ -10,7 +10,6 @@ import {
 import { Code, Group, ScrollArea } from '@mantine/core';
 import { LinksGroup } from '@/components/NavbarLinksGroup/NavbarLinksGroup';
 import { UserButton } from '@/components/UserButton/UserButton';
-import { Logo } from './Logo';
 import classes from './NavbarNested.module.css';
 
 const mockdata = [
