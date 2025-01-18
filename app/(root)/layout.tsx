@@ -5,7 +5,7 @@ import { AppShell, Burger, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { NavbarNested } from './NavbarNested';
 import { HeaderMegaMenu } from '@/components/HeaderMegaMenu/HeaderMegaMenu';
-import  Logo  from './Logo';
+import Logo from './Logo';
 
 
 export default function RootLayout({ children }: { children: any }) {
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: any }) {
           hiddenFrom="sm"
           size="md"
         />
-        <Logo width={50} height={50}  color="#ff6347"/>
+        <Logo width={42} height={42} color="#ff6347" />
         <HeaderMegaMenu />
       </Group>
     </AppShell.Header>
