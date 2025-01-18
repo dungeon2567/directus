@@ -28,6 +28,7 @@
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.16",
     "@tabler/icons-react": "^3.6.0",
+    "framer-motion": "^11.18.1",
     "next": "15.0.1",
     "next-auth": "^5.0.0-beta.25",
     "react": "18.3.1",
