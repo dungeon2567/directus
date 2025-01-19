@@ -24,14 +24,14 @@ export default function RootLayout({ children }: { children: any }) {
     padding="md"
   >
     <AppShell.Header>
-      <Group justify="space-between" pl="md" pr="md" h="100%">
+      <Group justify="space-between" pl="xl" pr="xl" h="100%">
         <Burger
           opened={opened}
           onClick={toggle}
           hiddenFrom="sm"
           size="md"
         />
-        <Logo width={42} height={42} color="#ff6347" />
+        <Logo width={36} height={36} color="#ff6347" />
         <HeaderMegaMenu />
       </Group>
     </AppShell.Header>
