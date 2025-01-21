@@ -19,6 +19,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -50,6 +51,8 @@ export default function LoginPage() {
   const handleRegister = async () => {
     setLoading(true);
     setError(null);
+    setMessage(null);
+
 
     try {
       const { error } = await supabase.auth.signUp({ email, password });
@@ -57,8 +60,7 @@ export default function LoginPage() {
       if (error) {
         setError(error.message);
       } else {
-        // Handle successful registration
-        console.log('Registration successful');
+        setMessage('Registration successful');
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
@@ -84,6 +86,20 @@ export default function LoginPage() {
             withCloseButton
           >
             {error}
+          </Alert>
+        )}
+
+
+        {message && (
+          <Alert
+            variant="outline"
+            icon={<IconAlertCircle size={16} />}
+            title="Message"
+            color="blue"
+            mb="md"
+            withCloseButton
+          >
+            {message}
           </Alert>
         )}
 
