@@ -1,9 +1,9 @@
-import { IconChevronDown, IconChevronRight, IconHeart, IconLogout, IconMessage, IconPlayerPause, IconSettings, IconStar, IconSwitchHorizontal, IconTrash } from '@tabler/icons-react';
+import { IconChevronRight, IconHeart, IconLogout, IconMessage, IconPlayerPause, IconSettings, IconStar, IconSwitchHorizontal, IconTrash } from '@tabler/icons-react';
 import { Avatar, Group, Menu, Text, UnstyledButton, useMantineTheme } from '@mantine/core';
 import classes from './UserButton.module.css';
-import { useDisclosure } from '@mantine/hooks';
-import { useState } from 'react';
-import cx from 'clsx';
+import { useSupabaseClient, useUser } from '../SessionContext';
+import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
 
 const user = {
     name: 'Jane Spoonfighter',
@@ -15,17 +15,25 @@ const user = {
 
 export function UserButton() {
     const theme = useMantineTheme();
-    const [opened, { toggle }] = useDisclosure(false);
-    const [userMenuOpened, setUserMenuOpened] = useState(false);
+    const user = useUser();
+    const supabase = useSupabaseClient();
+    const router = useRouter();
 
+    const supabaseLogout = useCallback(async () => {
+        try {
+            const { error } = await supabase.auth.signOut(); // Sign out user
+            if (error) throw error; // Handle error if logout fails
+            router.push('/login'); // Redirect to login page after logout
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    }, [router]); // Add dependencies to the hook
 
     return (
         <Menu
             width={260}
             position="right-start"
             transitionProps={{ transition: 'pop-top-right' }}
-            onClose={() => setUserMenuOpened(false)}
-            onOpen={() => setUserMenuOpened(true)}
             withinPortal
         >
             <Menu.Target>
@@ -38,11 +46,11 @@ export function UserButton() {
 
                         <div style={{ flex: 1 }}>
                             <Text size="sm" fw={500}>
-                                Harriette Spoonlicker
+                                {user?.user_metadata?.name}
                             </Text>
 
                             <Text c="dimmed" size="xs">
-                                hspoonlicker@outlook.com
+                                {user?.email}
                             </Text>
                         </div>
 
@@ -74,7 +82,7 @@ export function UserButton() {
                 <Menu.Item leftSection={<IconSwitchHorizontal size={16} stroke={1.5} />}>
                     Change account
                 </Menu.Item>
-                <Menu.Item leftSection={<IconLogout size={16} stroke={1.5} />}>Logout</Menu.Item>
+                <Menu.Item leftSection={<IconLogout size={16} stroke={1.5} />} onClick={supabaseLogout}>Logout</Menu.Item>
 
                 <Menu.Divider />
 

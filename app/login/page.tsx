@@ -36,10 +36,6 @@ export default function LoginPage() {
       if (error) {
         setError(error.message);
       } else {
-        // Redirect or handle successful login
-        console.log('Login successful');
-
-        debugger;
 
         router?.push('/');  // Adjust this route as needed
       }
