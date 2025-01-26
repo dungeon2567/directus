@@ -35,13 +35,8 @@ export const MOCKDATA = [
   },
 ];
 
-interface FeatureProps {
-  icon: React.FC<any>;
-  title: React.ReactNode;
-  description: React.ReactNode;
-}
 
-export function Feature({ icon: Icon, title, description }: FeatureProps) {
+export function Feature({ icon: Icon, title, description }) {
   return (
     <div>
       <ThemeIcon variant="light" size={40} radius={40}>

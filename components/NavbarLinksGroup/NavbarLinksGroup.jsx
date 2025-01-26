@@ -3,18 +3,11 @@ import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
 import { Box, Collapse, Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
 import classes from './NavbarLinksGroup.module.css';
 
-interface LinksGroupProps {
-  icon: React.FC<any>;
-  label: string;
-  initiallyOpened?: boolean;
-  links?: { label: string; link: string }[];
-}
-
-export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksGroupProps) {
+export function LinksGroup({ icon: Icon, label, initiallyOpened, links }) {
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
   const items = (hasLinks ? links : []).map((link) => (
-    <Text<'a'>
+    <Text
       component="a"
       className={classes.link}
       href={link.link}

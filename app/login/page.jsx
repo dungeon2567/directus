@@ -18,8 +18,8 @@ import { useRouter } from 'next/navigation';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();

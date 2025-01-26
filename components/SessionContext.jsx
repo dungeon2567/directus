@@ -8,52 +8,21 @@ import React, {
     useState
 } from 'react';
 
-export type SessionContext =
-    | {
-        isLoading: true;
-        session: null;
-        error: null;
-        supabaseClient: SupabaseClient;
-    }
-    | {
-        isLoading: false;
-        session: Session;
-        error: null;
-        supabaseClient: SupabaseClient;
-    }
-    | {
-        isLoading: false;
-        session: null;
-        error: AuthError;
-        supabaseClient: SupabaseClient;
-    }
-    | {
-        isLoading: false;
-        session: null;
-        error: null;
-        supabaseClient: SupabaseClient;
-    };
-
-const SessionContext = createContext<SessionContext>({
+const SessionContext = createContext({
     isLoading: true,
     session: null,
     error: null,
-    supabaseClient: {} as any
+    supabaseClient: {}
 });
-
-export interface SessionContextProviderProps {
-    supabaseClient: SupabaseClient;
-    initialSession?: Session | null;
-}
 
 export const SessionContextProvider = ({
     supabaseClient,
     initialSession = null,
     children
-}: PropsWithChildren<SessionContextProviderProps>) => {
-    const [session, setSession] = useState<Session | null>(initialSession);
-    const [isLoading, setIsLoading] = useState<boolean>(!initialSession);
-    const [error, setError] = useState<AuthError>();
+}) => {
+    const [session, setSession] = useState(initialSession);
+    const [isLoading, setIsLoading] = useState(!initialSession);
+    const [error, setError] = useState();
 
     useEffect(() => {
         if (!session && initialSession) {
@@ -111,7 +80,7 @@ export const SessionContextProvider = ({
         };
     }, []);
 
-    const value: SessionContext = useMemo(() => {
+    const value = useMemo(() => {
         if (isLoading) {
             return {
                 isLoading: true,
@@ -150,18 +119,13 @@ export const useSessionContext = () => {
     return context;
 };
 
-export function useSupabaseClient<
-    Database = any,
-    SchemaName extends string & keyof Database = 'public' extends keyof Database
-    ? 'public'
-    : string & keyof Database
->() {
+export function useSupabaseClient() {
     const context = useContext(SessionContext);
     if (context === undefined) {
         throw new Error(`useSupabaseClient must be used within a SessionContextProvider.`);
     }
 
-    return context.supabaseClient as SupabaseClient<Database, SchemaName>;
+    return context.supabaseClient;
 }
 
 export const useSession = () => {

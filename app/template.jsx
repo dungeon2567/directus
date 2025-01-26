@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-export default function Template({ children }: { children: React.ReactNode }) {
+export default function Template({ children }) {
   return (
     <motion.div
       initial={{ y: 20, opacity: 0 }}

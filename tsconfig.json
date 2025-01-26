@@ -20,6 +20,6 @@
     },
     "plugins": [{ "name": "next" }]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "utils/supabase/context.mts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "utils/supabase/context.mts", "app/template.jsx", "app/layout.jsx", "app/private/page.jsx", "app/login/page.jsx", "app/api/auth/[...nextauth]/route.js", "app/auth/confirm/route.js", "app/(root)/page.jsx", "app/(root)/NavbarNested.jsx", "app/(root)/Logo.jsx", "app/(root)/layout.jsx", "components/ColorSchemeToggle/ColorSchemeToggle.jsx", "components/FeaturesGrid/FeatureGrid.jsx", "components/HeaderMegaMenu/HeaderMegaMenu.jsx", "components/NavbarLinksGroup/NavbarLinksGroup.jsx", "components/UserButton/UserButton.jsx", "components/SessionContext.jsx", "components/ReactQueryClientProvider.jsx"],
   "exclude": ["node_modules"]
 }

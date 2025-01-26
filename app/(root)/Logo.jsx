@@ -1,22 +1,15 @@
 import React from "react";
 
-type LogoProps = {
-  width?: number; // Optional width of the logo in pixels
-  height?: number; // Optional height of the logo in pixels
-  color?: string; // Optional color for the logo
-  text?: string; // Optional text to display on the logo
-  textColor?: string; // Optional color for the text
-  fontSize?: number; // Optional font size for the text
-};
-
-const Logo: React.FC<LogoProps> = ({ 
-  width = 100, 
-  height = 100, 
-  color = "#0070f3", 
-  text = "Logo", 
-  textColor = "#000", 
-  fontSize = 14 
-}) => {
+const Logo = (props) => {
+  const { 
+    width = 100, 
+    height = 100, 
+    color = "#0070f3", 
+    text = "Logo", 
+    textColor = "#000", 
+    fontSize = 14 
+  } = props;
+  
   return (
     <svg
       width={width}
